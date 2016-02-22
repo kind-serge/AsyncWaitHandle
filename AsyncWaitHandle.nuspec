@@ -7,7 +7,10 @@
         <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
         <projectUrl>https://github.com/tyrotoxin/AsyncWaitHandle</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>Use C#/VB await keyword with AutoResetEvent, ManualResetEvent, or Semaphore in .NET apps</description>
+        <description>Use C#/VB await keyword with AutoResetEvent, ManualResetEvent, or Semaphore in .NET apps
+
+See examples in README on GitHub:
+https://github.com/tyrotoxin/AsyncWaitHandle</description>
         <summary />
         <tags>async await WaitHandle AutoResetEvent ManualResetEvent Semaphore Task</tags>
         <frameworkAssemblies>
@@ -15,7 +18,7 @@
         </frameworkAssemblies>
     </metadata>
     <files>
-        <file src="bin\Release\AsyncWaitHandle.dll" target="AsyncWaitHandle.dll" />
-        <file src="bin\Release\AsyncWaitHandle.XML" target="AsyncWaitHandle.XML" />
+        <file src="lib\AsyncWaitHandle.dll" target="lib\AsyncWaitHandle.dll" />
+        <file src="lib\AsyncWaitHandle.XML" target="lib\AsyncWaitHandle.XML" />
     </files>
 </package>

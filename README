@@ -1,6 +1,7 @@
 Use C#/VB await keyword with AutoResetEvent, ManualResetEvent, or Semaphore in .NET apps
 
 Extension methods for the WaitHandle class are available in the System.Threading namespace for your convenience.
+Available as NuGet package 'AsyncWaitHandle' on nuget.org: https://www.nuget.org/packages/AsyncWaitHandle/
 
 
 Exammple 1 (simple await):

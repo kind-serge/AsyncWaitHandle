@@ -52,10 +52,10 @@ namespace System.Threading
         /// </summary>
         /// <param name="waitHandle">An instance of <see cref="System.Threading.AutoResetEvent"/>, <see cref="System.Threading.ManualResetEvent"/>, or <see cref="System.Threading.Semaphore"/></param>
         /// <param name="cancellationToken">The cancellation token to stop waiting. If cancellation is requested, the Task will throw <see cref="System.OperationCanceledException"/>.</param>
-        /// <returns>Returns a task which result tells if the <see cref="System.Threading.WaitHandle"/> signaled (True) or didn't (False), or throws the <see cref="System.OperationCanceledException"/></returns>
+        /// <returns>Returns a task which completes when the <see cref="System.Threading.WaitHandle"/> signals, or throws the <see cref="System.OperationCanceledException"/></returns>
         /// <exception cref="System.OperationCanceledException">Throws <see cref="System.OperationCanceledException"/> if the cancellation was requested using given <paramref name="cancellationToken"/></exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Task<bool> WaitOneAsync(this WaitHandle waitHandle, CancellationToken cancellationToken = default(CancellationToken)) => waitHandle.WaitOneAsync(timeoutMs: -1, cancellationToken: cancellationToken);
+        public static Task WaitOneAsync(this WaitHandle waitHandle, CancellationToken cancellationToken = default(CancellationToken)) => waitHandle.WaitOneAsync(timeoutMs: -1, cancellationToken: cancellationToken);
 
         /// <summary>
         /// Creates a task for waiting the <see cref="System.Threading.WaitHandle"/>, so you can write: "if (await waitHandle.WaitOneAsync()) ... else ..." or "await waitHandle.WaitOneAsync().ContinueWith(...)"
