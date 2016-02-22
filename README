@@ -1,1 +1,83 @@
 Use C#/VB await keyword with AutoResetEvent, ManualResetEvent, or Semaphore in .NET apps
+
+Extension methods the WaitHandle class are available in the System.Threading namespace for your convenience.
+
+
+Exammple 1 (simple await):
+
+var e = new AutoResetEvent();
+...
+await e;
+
+
+Exammple 2 (configured await):
+
+var e = new AutoResetEvent();
+var cts = new CancellationTokenSource();
+...
+var timeout = timeout: TimeSpan.FromSeconds(30);
+try {
+  await e.ConfigureAwait(timeout, cts.Token);
+}
+catch (TimeOutException)
+{
+  ...
+}
+catch (OperationCanceledException)
+{
+  ...
+}
+
+
+Exammple 3 (WaitOneAsync):
+
+var e = new AutoResetEvent();
+var cts = new CancellationTokenSource();
+...
+var timeout = timeout: TimeSpan.FromSeconds(30);
+bool fSignaled;
+try {
+  fSignaled = await e.WaitOneAsync(timeout, cts.Token);
+}
+catch (OperationCanceledException)
+{
+  ...
+}
+
+
+Exammple 4 (WaitAnyAsync):
+
+var events = new WaitHandle[] { new AutoResetEvent(), new ManualResetEvent() };
+var cts = new CancellationTokenSource();
+...
+var timeout = timeout: TimeSpan.FromSeconds(30);
+int signaledIndex;
+try {
+  signaledIndex = await e.WaitAnyAsync(timeout, cts.Token);
+}
+catch (OperationCanceledException)
+{
+  ...
+}
+switch (signaledIndex)
+{
+  case 0: ...
+  case 1: ...
+  case WaitHandle.WaitTimeout: ...
+}
+
+
+Exammple 5 (WaitAllAsync):
+
+var events = new WaitHandle[] { new AutoResetEvent(), new ManualResetEvent() };
+var cts = new CancellationTokenSource();
+...
+var timeout = timeout: TimeSpan.FromSeconds(30);
+bool allSignaled;
+try {
+  allSignaled = await e.WaitAllAsync(timeout, cts.Token);
+}
+catch (OperationCanceledException)
+{
+  ...
+}
