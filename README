@@ -1,6 +1,6 @@
 Use C#/VB await keyword with AutoResetEvent, ManualResetEvent, or Semaphore in .NET apps
 
-Extension methods the WaitHandle class are available in the System.Threading namespace for your convenience.
+Extension methods for the WaitHandle class are available in the System.Threading namespace for your convenience.
 
 
 Exammple 1 (simple await):
@@ -53,7 +53,7 @@ var cts = new CancellationTokenSource();
 var timeout = timeout: TimeSpan.FromSeconds(30);
 int signaledIndex;
 try {
-  signaledIndex = await e.WaitAnyAsync(timeout, cts.Token);
+  signaledIndex = await events.WaitAnyAsync(timeout, cts.Token);
 }
 catch (OperationCanceledException)
 {
@@ -75,7 +75,7 @@ var cts = new CancellationTokenSource();
 var timeout = timeout: TimeSpan.FromSeconds(30);
 bool allSignaled;
 try {
-  allSignaled = await e.WaitAllAsync(timeout, cts.Token);
+  allSignaled = await events.WaitAllAsync(timeout, cts.Token);
 }
 catch (OperationCanceledException)
 {
