@@ -18,7 +18,7 @@ https://github.com/tyrotoxin/AsyncWaitHandle</description>
         </frameworkAssemblies>
     </metadata>
     <files>
-        <file src="lib\AsyncWaitHandle.dll" target="lib\AsyncWaitHandle.dll" />
-        <file src="lib\AsyncWaitHandle.XML" target="lib\AsyncWaitHandle.XML" />
+        <file src="bin\Release\AsyncWaitHandle.dll" target="lib\AsyncWaitHandle.dll" />
+        <file src="bin\Release\AsyncWaitHandle.XML" target="lib\AsyncWaitHandle.XML" />
     </files>
 </package>
