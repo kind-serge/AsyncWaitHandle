@@ -15,7 +15,7 @@ Exammple 2 (configured await):
 var e = new AutoResetEvent();
 var cts = new CancellationTokenSource();
 ...
-var timeout = timeout: TimeSpan.FromSeconds(30);
+var timeout = TimeSpan.FromSeconds(30);
 try {
   await e.ConfigureAwait(timeout, cts.Token);
 }
@@ -34,7 +34,7 @@ Exammple 3 (WaitOneAsync):
 var e = new AutoResetEvent();
 var cts = new CancellationTokenSource();
 ...
-var timeout = timeout: TimeSpan.FromSeconds(30);
+var timeout = TimeSpan.FromSeconds(30);
 bool fSignaled;
 try {
   fSignaled = await e.WaitOneAsync(timeout, cts.Token);
@@ -50,7 +50,7 @@ Exammple 4 (WaitAnyAsync):
 var events = new WaitHandle[] { new AutoResetEvent(), new ManualResetEvent() };
 var cts = new CancellationTokenSource();
 ...
-var timeout = timeout: TimeSpan.FromSeconds(30);
+var timeout = TimeSpan.FromSeconds(30);
 int signaledIndex;
 try {
   signaledIndex = await events.WaitAnyAsync(timeout, cts.Token);
@@ -63,7 +63,7 @@ switch (signaledIndex)
 {
   case 0: ...
   case 1: ...
-  case WaitHandle.WaitTimeout: ...
+  case WaitHandle.Wait...
 }
 
 
@@ -72,7 +72,7 @@ Exammple 5 (WaitAllAsync):
 var events = new WaitHandle[] { new AutoResetEvent(), new ManualResetEvent() };
 var cts = new CancellationTokenSource();
 ...
-var timeout = timeout: TimeSpan.FromSeconds(30);
+var timeout = TimeSpan.FromSeconds(30);
 bool allSignaled;
 try {
   allSignaled = await events.WaitAllAsync(timeout, cts.Token);
