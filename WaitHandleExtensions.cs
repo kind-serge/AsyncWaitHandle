@@ -79,7 +79,7 @@ namespace System.Threading
         public static Task<bool> WaitOneAsync(this WaitHandle waitHandle, int timeoutMs, CancellationToken cancellationToken = default(CancellationToken)) => WaitHandleAsyncOperations.WaitOneAsync(waitHandle, timeoutMs, cancellationToken);
 
         /// <summary>
-        /// Waits for any of given <see cref="System.Threading.WaitHandle"/> to pulse. Unlike <see cref="System.Threading.WaitHandle.WaitAny"/>, this method does not wait on all of them as an atomic operation, but registers awaiters for given wait handles one by one, and there is no restriction of maximum 64 handles.
+        /// Waits for any of given <see cref="System.Threading.WaitHandle"/> to pulse. Unlike <see cref="System.Threading.WaitHandle.WaitAny(WaitHandle[])"/>, this method does not wait on all of them as an atomic operation, but registers awaiters for given wait handles one by one, and there is no restriction of maximum 64 handles.
         /// </summary>
         /// <param name="waitHandles">The collection of <see cref="System.Threading.WaitHandle"/>s to wait on: <see cref="System.Threading.AutoResetEvent"/>, <see cref="System.Threading.ManualResetEvent"/>, or <see cref="System.Threading.Semaphore"/></param>
         /// <param name="cancellationToken">The cancellation token to stop waiting. If cancellation is requested, the Task will throw <see cref="System.OperationCanceledException"/>.</param>
@@ -89,7 +89,7 @@ namespace System.Threading
         public static Task<int> WaitAnyAsync(this IEnumerable<WaitHandle> waitHandles, CancellationToken cancellationToken = default(CancellationToken)) => waitHandles.WaitAnyAsync(timeoutMs: -1, cancellationToken: cancellationToken);
 
         /// <summary>
-        /// Waits for any of given <see cref="System.Threading.WaitHandle"/> to pulse. Unlike <see cref="System.Threading.WaitHandle.WaitAny"/>, this method does not wait on all of them as an atomic operation, but registers awaiters for given wait handles one by one, and there is no restriction of maximum 64 handles.
+        /// Waits for any of given <see cref="System.Threading.WaitHandle"/> to pulse. Unlike <see cref="System.Threading.WaitHandle.WaitAny(WaitHandle[], TimeSpan)"/>, this method does not wait on all of them as an atomic operation, but registers awaiters for given wait handles one by one, and there is no restriction of maximum 64 handles.
         /// </summary>
         /// <param name="waitHandles">The collection of <see cref="System.Threading.WaitHandle"/>s to wait on: <see cref="System.Threading.AutoResetEvent"/>, <see cref="System.Threading.ManualResetEvent"/>, or <see cref="System.Threading.Semaphore"/></param>
         /// <param name="timeout">The wait timeout. If all time out this method returns <see cref="System.Threading.WaitHandle.WaitTimeout"/>.</param>
@@ -100,7 +100,7 @@ namespace System.Threading
         public static Task<int> WaitAnyAsync(this IEnumerable<WaitHandle> waitHandles, TimeSpan timeout, CancellationToken cancellationToken = default(CancellationToken)) => waitHandles.WaitAnyAsync((int)timeout.TotalMilliseconds, cancellationToken);
 
         /// <summary>
-        /// Waits for any of given <see cref="System.Threading.WaitHandle"/> to pulse. Unlike <see cref="System.Threading.WaitHandle.WaitAny"/>, this method does not wait on all of them as an atomic operation, but registers awaiters for given wait handles one by one, and there is no restriction of maximum 64 handles.
+        /// Waits for any of given <see cref="System.Threading.WaitHandle"/> to pulse. Unlike <see cref="System.Threading.WaitHandle.WaitAny(WaitHandle[], int)"/>, this method does not wait on all of them as an atomic operation, but registers awaiters for given wait handles one by one, and there is no restriction of maximum 64 handles.
         /// </summary>
         /// <param name="waitHandles">The collection of <see cref="System.Threading.WaitHandle"/>s to wait on: <see cref="System.Threading.AutoResetEvent"/>, <see cref="System.Threading.ManualResetEvent"/>, or <see cref="System.Threading.Semaphore"/></param>
         /// <param name="timeoutMs">The wait timeout in milliseconds. Set to -1 to wait indefinitely. If all time out this method returns <see cref="System.Threading.WaitHandle.WaitTimeout"/>.</param>
@@ -111,7 +111,7 @@ namespace System.Threading
         public static Task<int> WaitAnyAsync(this IEnumerable<WaitHandle> waitHandles, int timeoutMs, CancellationToken cancellationToken = default(CancellationToken)) => WaitHandleAsyncOperations.WaitAnyAsync(waitHandles, timeoutMs, cancellationToken);
 
         /// <summary>
-        /// Waits for all of given <see cref="System.Threading.WaitHandle"/> to pulse. Unlike <see cref="System.Threading.WaitHandle.WaitAll"/>, this method does not wait on all of them as an atomic operation, but registers awaiters for given wait handles one by one, and there is no restriction of maximum 64 handles.
+        /// Waits for all of given <see cref="System.Threading.WaitHandle"/> to pulse. Unlike <see cref="System.Threading.WaitHandle.WaitAll(WaitHandle[])"/>, this method does not wait on all of them as an atomic operation, but registers awaiters for given wait handles one by one, and there is no restriction of maximum 64 handles.
         /// </summary>
         /// <param name="waitHandles">The collection of <see cref="System.Threading.WaitHandle"/>s to wait on: <see cref="System.Threading.AutoResetEvent"/>, <see cref="System.Threading.ManualResetEvent"/>, or <see cref="System.Threading.Semaphore"/></param>
         /// <param name="cancellationToken">The cancellation token to stop waiting. If cancellation is requested, the Task will throw <see cref="System.OperationCanceledException"/>.</param>
@@ -121,7 +121,7 @@ namespace System.Threading
         public static Task WaitAllAsync(this IEnumerable<WaitHandle> waitHandles, CancellationToken cancellationToken = default(CancellationToken)) => waitHandles.WaitAllAsync(timeoutMs: -1, cancellationToken: cancellationToken);
 
         /// <summary>
-        /// Waits for all of given <see cref="System.Threading.WaitHandle"/> to pulse. Unlike <see cref="System.Threading.WaitHandle.WaitAll"/>, this method does not wait on all of them as an atomic operation, but registers awaiters for given wait handles one by one, and there is no restriction of maximum 64 handles.
+        /// Waits for all of given <see cref="System.Threading.WaitHandle"/> to pulse. Unlike <see cref="System.Threading.WaitHandle.WaitAll(WaitHandle[], TimeSpan)"/>, this method does not wait on all of them as an atomic operation, but registers awaiters for given wait handles one by one, and there is no restriction of maximum 64 handles.
         /// </summary>
         /// <param name="waitHandles">The collection of <see cref="System.Threading.WaitHandle"/>s to wait on: <see cref="System.Threading.AutoResetEvent"/>, <see cref="System.Threading.ManualResetEvent"/>, or <see cref="System.Threading.Semaphore"/></param>
         /// <param name="timeout">The wait timeout. If any handle times out this method returns False.</param>
@@ -132,7 +132,7 @@ namespace System.Threading
         public static Task<bool> WaitAllAsync(this IEnumerable<WaitHandle> waitHandles, TimeSpan timeout, CancellationToken cancellationToken = default(CancellationToken)) => waitHandles.WaitAllAsync((int)timeout.TotalMilliseconds, cancellationToken);
 
         /// <summary>
-        /// Waits for all of given <see cref="System.Threading.WaitHandle"/> to pulse. Unlike <see cref="System.Threading.WaitHandle.WaitAll"/>, this method does not wait on all of them as an atomic operation, but registers awaiters for given wait handles one by one, and there is no restriction of maximum 64 handles.
+        /// Waits for all of given <see cref="System.Threading.WaitHandle"/> to pulse. Unlike <see cref="System.Threading.WaitHandle.WaitAll(WaitHandle[], int)"/>, this method does not wait on all of them as an atomic operation, but registers awaiters for given wait handles one by one, and there is no restriction of maximum 64 handles.
         /// </summary>
         /// <param name="waitHandles">The collection of <see cref="System.Threading.WaitHandle"/>s to wait on: <see cref="System.Threading.AutoResetEvent"/>, <see cref="System.Threading.ManualResetEvent"/>, or <see cref="System.Threading.Semaphore"/></param>
         /// <param name="timeoutMs">The wait timeout in milliseconds. Set to -1 to wait indefinitely. If any handle times out this method returns False.</param>

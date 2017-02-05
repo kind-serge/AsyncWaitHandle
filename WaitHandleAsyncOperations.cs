@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace AsyncWaitHandle
 {
+    /// <summary>
+    /// Extension methods for the <see cref="System.Threading.WaitHandle"/>
+    /// </summary>
     public static class WaitHandleAsyncOperations
     {
         /// <summary>
@@ -30,7 +33,7 @@ namespace AsyncWaitHandle
         }
 
         /// <summary>
-        /// Waits for any of given <see cref="System.Threading.WaitHandle"/> to pulse. Unlike <see cref="System.Threading.WaitHandle.WaitAny"/>, this method does not wait on all of them as an atomic operation, but registers awaiters for given wait handles one by one, and there is no restriction of maximum 64 handles.
+        /// Waits for any of given <see cref="System.Threading.WaitHandle"/> to pulse. Unlike <see cref="System.Threading.WaitHandle.WaitAny(WaitHandle[])"/>, this method does not wait on all of them as an atomic operation, but registers awaiters for given wait handles one by one, and there is no restriction of maximum 64 handles.
         /// </summary>
         /// <param name="waitHandles">The collection of <see cref="System.Threading.WaitHandle"/>s to wait on: <see cref="System.Threading.AutoResetEvent"/>, <see cref="System.Threading.ManualResetEvent"/>, or <see cref="System.Threading.Semaphore"/></param>
         /// <param name="timeoutMs">The wait timeout in milliseconds. Set to -1 to wait indefinitely. If all time out this method returns <see cref="System.Threading.WaitHandle.WaitTimeout"/>.</param>
@@ -110,7 +113,7 @@ namespace AsyncWaitHandle
         }
 
         /// <summary>
-        /// Waits for all of given <see cref="System.Threading.WaitHandle"/> to pulse. Unlike <see cref="System.Threading.WaitHandle.WaitAll"/>, this method does not wait on all of them as an atomic operation, but registers awaiters for given wait handles one by one, and there is no restriction of maximum 64 handles.
+        /// Waits for all of given <see cref="System.Threading.WaitHandle"/> to pulse. Unlike <see cref="System.Threading.WaitHandle.WaitAll(WaitHandle[])"/>, this method does not wait on all of them as an atomic operation, but registers awaiters for given wait handles one by one, and there is no restriction of maximum 64 handles.
         /// </summary>
         /// <param name="waitHandles">The collection of <see cref="System.Threading.WaitHandle"/>s to wait on: <see cref="System.Threading.AutoResetEvent"/>, <see cref="System.Threading.ManualResetEvent"/>, or <see cref="System.Threading.Semaphore"/></param>
         /// <param name="timeoutMs">The wait timeout in milliseconds. Set to -1 to wait indefinitely. If any handle times out this method returns False.</param>

@@ -118,7 +118,7 @@ namespace AsyncWaitHandle
         /// Gets the result of waiting operation. Returns nothing in <see cref="System.TimeoutException"/> has signaled, or throws an exception in other cases.
         /// </summary>
         /// <exception cref="System.TimeoutException">Throws <see cref="System.TimeoutException"/> if the <see cref="System.Threading.WaitHandle"/> didn't pulse within given time frame</exception>
-        /// <exception cref="System.OperationCanceledException">Throws <see cref="System.OperationCanceledException"/> if the cancellation was requested using given <paramref name="cancellationToken"/></exception>
+        /// <exception cref="System.OperationCanceledException">Throws <see cref="System.OperationCanceledException"/> if the cancellation was requested using given cancellation token</exception>
         public void GetResult()
         {
             if (!IsCompleted) {
