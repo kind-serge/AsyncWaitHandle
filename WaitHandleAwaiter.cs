@@ -47,13 +47,13 @@ namespace AsyncWaitHandle
         /// <summary>
         /// Fired when either the WaitHandle pulses or waiting times out
         /// </summary>
-        private static void WaitCallback(object state, bool timedOut) => ((WaitHandleAwaiter)state).OnWaitHnadleComplete(timedOut);
+        private static void WaitCallback(object state, bool timedOut) => ((WaitHandleAwaiter)state).OnWaitHandleComplete(timedOut);
 
         /// <summary>
         /// Fired when either the WaitHandle pulses or waiting times out
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void OnWaitHnadleComplete(bool timedOut)
+        private void OnWaitHandleComplete(bool timedOut)
         {
             DoCompletion(timedOut ? State_TimedOut : State_Signaled);
         }
@@ -80,8 +80,7 @@ namespace AsyncWaitHandle
         private void InvokeContinuation()
         {
             // TO DO: optionally invoke on the SynchronizationContext
-            if (_continuation != null)
-                _continuation();
+            _continuation?.Invoke();
         }
 
         /// <summary>
@@ -124,7 +123,7 @@ namespace AsyncWaitHandle
         {
             if (!IsCompleted) {
                 bool isTimedOut = !_waitHandle.WaitOne(_timeoutMs);
-                OnWaitHnadleComplete(isTimedOut);
+                OnWaitHandleComplete(isTimedOut);
             }
 
             if (IsTimedOut)

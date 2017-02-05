@@ -15,14 +15,13 @@ namespace AsyncWaitHandle
         /// <param name="timeoutMs">The wait timeout in milliseconds. Set to -1 to wait indefinitely. On timeout the awaiter throws <see cref="System.TimeoutException"/>.</param>
         /// <param name="cancellationToken">The cancellation token to stop waiting. If cancellation is requested, the Task will throw <see cref="System.OperationCanceledException"/>.</param>
         /// <returns>Returns a task which result tells if the <see cref="System.Threading.WaitHandle"/> signaled (True) or didn't (False), or throws the <see cref="System.OperationCanceledException"/></returns>
-        /// <exception cref="System.OperationCanceledException">Throws <see cref="System.OperationCanceledException"/> if the cancellation was requested using given <paramref name="cancellationToken"/></exception>
         public static Task<bool> WaitOneAsync(WaitHandle waitHandle, int timeoutMs, CancellationToken cancellationToken = default(CancellationToken))
         {
             var tcs = new TaskCompletionSource<bool>();
             var awaiter = waitHandle.ConfigureAwait(timeoutMs, cancellationToken).GetAwaiter();
             Action completionAction = () => {
                 if (awaiter.IsCanceled)
-                    awaiter.GetResult(); // throws the OperationCanceledException
+                    tcs.TrySetCanceled();
                 else
                     tcs.TrySetResult(!awaiter.IsTimedOut);
             };
@@ -37,7 +36,6 @@ namespace AsyncWaitHandle
         /// <param name="timeoutMs">The wait timeout in milliseconds. Set to -1 to wait indefinitely. If all time out this method returns <see cref="System.Threading.WaitHandle.WaitTimeout"/>.</param>
         /// <param name="cancellationToken">The cancellation token to stop waiting. If cancellation is requested, the Task will throw <see cref="System.OperationCanceledException"/>.</param>
         /// <returns>Returns the index of a <see cref="System.Threading.WaitHandle"/> in the given collection which pulsed first, or <see cref="System.Threading.WaitHandle.WaitTimeout"/> if all of them timed out. Note that this method does not wait on all of them as an atomic operation, but registers awaiters for given wait handles one by one.</returns>
-        /// <exception cref="System.OperationCanceledException">Throws <see cref="System.OperationCanceledException"/> if the cancellation was requested using given <paramref name="cancellationToken"/></exception>
         public static Task<int> WaitAnyAsync(IEnumerable<WaitHandle> waitHandles, int timeoutMs, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (waitHandles == null)
@@ -54,11 +52,11 @@ namespace AsyncWaitHandle
             cancellationToken.ThrowIfCancellationRequested();
 
             var tcs = new TaskCompletionSource<int>();
-            WaitHandleAwaiter[] awaiters = new WaitHandleAwaiter[totalCount];
+            var awaiters = new WaitHandleAwaiter[totalCount];
             int failedCount = 0;
             int state = 0;
 
-            CancellationTokenRegistration ctRegistration = default(CancellationTokenRegistration);
+            var ctRegistration = default(CancellationTokenRegistration);
             if (cancellationToken.CanBeCanceled)
                 ctRegistration = cancellationToken.Register(() => {
                     if (Interlocked.CompareExchange(ref state, 1, 0) == 0) {
@@ -118,7 +116,6 @@ namespace AsyncWaitHandle
         /// <param name="timeoutMs">The wait timeout in milliseconds. Set to -1 to wait indefinitely. If any handle times out this method returns False.</param>
         /// <param name="cancellationToken">The cancellation token to stop waiting. If cancellation is requested, the Task will throw <see cref="System.OperationCanceledException"/>.</param>
         /// <returns>Returns True if all handles has pulsed, otherwise False</returns>
-        /// <exception cref="System.OperationCanceledException">Throws <see cref="System.OperationCanceledException"/> if the cancellation was requested using given <paramref name="cancellationToken"/></exception>
         public static Task<bool> WaitAllAsync(IEnumerable<WaitHandle> waitHandles, int timeoutMs, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (waitHandles == null)
@@ -135,11 +132,11 @@ namespace AsyncWaitHandle
             cancellationToken.ThrowIfCancellationRequested();
 
             var tcs = new TaskCompletionSource<bool>();
-            WaitHandleAwaiter[] awaiters = new WaitHandleAwaiter[totalCount];
+            var awaiters = new WaitHandleAwaiter[totalCount];
             int signaledCount = 0;
             int state = 0;
 
-            CancellationTokenRegistration ctRegistration = default(CancellationTokenRegistration);
+            var ctRegistration = default(CancellationTokenRegistration);
             if (cancellationToken.CanBeCanceled)
                 ctRegistration = cancellationToken.Register(() => {
                     if (Interlocked.CompareExchange(ref state, 1, 0) == 0) {
