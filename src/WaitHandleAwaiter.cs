@@ -18,12 +18,18 @@ namespace AsyncWaitHandle
         private const int State_TimedOut = 3;
         private const int State_Canceled = 4;
 
-        private WaitHandle _waitHandle;
-        private RegisteredWaitHandle _waitRegistration;
+        private readonly WaitHandle _waitHandle;
+        private readonly int _timeoutMs;
+        private RegisteredWaitHandle? _waitRegistration;
         private int _state = State_Waiting;
-        private int _timeoutMs;
-        private Action _continuation;
+        private Action? _continuation;
         private CancellationTokenRegistration _ctRegistration;
+
+        private WaitHandleAwaiter(WaitHandle waitHandle, int timeoutMs)
+        {
+            _waitHandle = waitHandle;
+            _timeoutMs = timeoutMs;
+        }
 
         /// <summary>
         /// Starts waiting on the <see cref="System.Threading.WaitHandle"/> to pulse on a separate thread
@@ -38,7 +44,7 @@ namespace AsyncWaitHandle
 
             cancellationToken.ThrowIfCancellationRequested();
 
-            var awaiter = new WaitHandleAwaiter() { _waitHandle = waitHandle, _timeoutMs = timeoutMs };
+            var awaiter = new WaitHandleAwaiter(waitHandle, timeoutMs);
             awaiter._waitRegistration = ThreadPool.RegisterWaitForSingleObject(waitHandle, WaitCallback, awaiter, timeoutMs, executeOnlyOnce: true);
 
             if (cancellationToken.CanBeCanceled)
@@ -73,7 +79,7 @@ namespace AsyncWaitHandle
         private void DoCompletion(int targetState)
         {
             if (WaitHandleAsyncOperations.TryChangeState(ref _state, expectedState: State_Waiting, newState: State_Completing)) {
-                _waitRegistration.Unregister(null);
+                _waitRegistration?.Unregister(null);
                 _ctRegistration.Dispose();
                 _state = targetState;
                 InvokeContinuation();
@@ -110,7 +116,7 @@ namespace AsyncWaitHandle
         /// Sets the action to invoke when the waiting is complete
         /// </summary>
         /// <param name="continuation">The action to invoke on completion</param>
-        public void OnCompleted(Action continuation)
+        public void OnCompleted(Action? continuation)
         {
             _continuation = continuation;
             if (IsCompleted)

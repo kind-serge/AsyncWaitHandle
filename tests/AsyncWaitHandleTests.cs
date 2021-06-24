@@ -1,6 +1,8 @@
 // Copyright (c) Serge Semenov.
 // Licensed under the MIT License.
 
+using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using AsyncWaitHandle;
@@ -12,7 +14,7 @@ namespace AsyncWaitHandle.Tests
     public class AsyncWaitHandleTests
     {
         // Regression test for the case where a WaitOneAsync() on a manual-reset
-        // event that is already set result in a NullReferenceException in version 1.0.1.
+        // event that is quickly set results in a NullReferenceException in version 1.0.1.
         [TestMethod]
         public async Task StressTestFastCompletion()
         {
@@ -34,7 +36,7 @@ namespace AsyncWaitHandle.Tests
         }
         
         [TestMethod]
-        public async Task AwaitWithCancellationTokenHonorsCancellation()
+        public async Task WaitOneWithCancellationTokenHonorsCancellation()
         {
             using var completionEvent = new ManualResetEvent(false);
             using var cts = new CancellationTokenSource();
@@ -42,6 +44,43 @@ namespace AsyncWaitHandle.Tests
             Assert.IsFalse(waitTask.IsCompleted);
             cts.Cancel();
             await Assert.ThrowsExceptionAsync<TaskCanceledException>(() => waitTask);
+        }
+
+        [TestMethod]
+        public async Task WaitOneWithTimeoutTimesOut()
+        {
+            using var completionEvent = new ManualResetEvent(false);
+            Stopwatch sw = Stopwatch.StartNew();
+            await completionEvent.WaitOneAsync(TimeSpan.FromMilliseconds(200));
+            Assert.IsTrue(sw.ElapsedMilliseconds > 100);
+        }
+
+        [TestMethod]
+        public async Task AwaitAny()
+        {
+            using var completionEvent1 = new ManualResetEvent(false);
+            using var completionEvent2 = new ManualResetEvent(false);
+            var events = new[] {completionEvent1, completionEvent2};
+            Task waitTask = events.WaitAnyAsync();
+            Assert.IsFalse(waitTask.IsCompleted);
+            completionEvent1.Set();
+            await waitTask;
+        }
+
+        [TestMethod]
+        public async Task AwaitAll()
+        {
+            using var completionEvent1 = new ManualResetEvent(false);
+            using var completionEvent2 = new ManualResetEvent(false);
+            var events = new[] { completionEvent1, completionEvent2 };
+            Task waitTask = events.WaitAllAsync();
+            Assert.IsFalse(waitTask.IsCompleted);
+
+            completionEvent1.Set();
+            Assert.IsFalse(waitTask.IsCompleted);
+
+            completionEvent2.Set();
+            await waitTask;
         }
     }
 }

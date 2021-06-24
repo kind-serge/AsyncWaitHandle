@@ -1,9 +1,12 @@
 <Project>
+
   <PropertyGroup>
       <!--When build from command line with 'msbuild' command the Configuration property may be null. Setting the default to compute the right output directory.-->
     <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
 
     <LangVersion>latest</LangVersion>
+
+    <TreatWarningsAsErrors Condition="'$(TreatWarningsAsErrors)' == ''">true</TreatWarningsAsErrors>
   </PropertyGroup>
 
 </Project>
