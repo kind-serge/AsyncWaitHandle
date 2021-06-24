@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) Serge Semenov.
+// Licensed under the MIT License.
+
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;

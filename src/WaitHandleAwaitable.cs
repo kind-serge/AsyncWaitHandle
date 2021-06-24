@@ -1,4 +1,7 @@
-﻿using System.Threading;
+﻿// Copyright (c) Serge Semenov.
+// Licensed under the MIT License.
+
+using System.Threading;
 
 namespace AsyncWaitHandle
 {

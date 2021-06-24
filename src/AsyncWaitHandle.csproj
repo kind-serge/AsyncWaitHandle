@@ -3,13 +3,12 @@
   <PropertyGroup>
     <RootNamespace>AsyncWaitHandle</RootNamespace>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
 
     <!-- Use embedded PDB mode to improve diagnosing and debugging experience. -->
     <DebugType>embedded</DebugType>
 
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)build\AsyncWaitHandle.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)..\build\AsyncWaitHandle.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
