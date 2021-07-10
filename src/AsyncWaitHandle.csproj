@@ -21,7 +21,10 @@
     <Version>2.0.0.0</Version>
 
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    
+
+    <!-- Remove if merged into main branch of original AsyncWaitHandle repo -->
+    <PackageId>AsyncWaitHandle2</PackageId>
+
     <Company>Serge Semenov</Company>
     <Copyright>Copyright (c) 2017-2021</Copyright>
     <Description>Async-await extensions for WaitHandle</Description>
@@ -29,6 +32,8 @@
     <PackageProjectUrl>https://github.com/kind-serge/AsyncWaitHandle</PackageProjectUrl>
     <RepositoryUrl>https://github.com/kind-serge/AsyncWaitHandle</RepositoryUrl>
     <PackageDescription>Use C#/VB await keyword with AutoResetEvent, ManualResetEvent, or Semaphore in .NET apps.</PackageDescription>
+    <PackageTags>WaitHandle async await AutoResetEvent ManualResetEvent Semaphore</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.xml</AllowedOutputExtensionsInPackageBuildOutputFolder>
 
   </PropertyGroup>
