@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>AsyncWaitHandle</RootNamespace>
+    <TargetFramework>netstandard2.0</TargetFramework>
+
+    <!-- Use embedded PDB mode to improve diagnosing and debugging experience. -->
+    <DebugType>embedded</DebugType>
+
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)..\build\AsyncWaitHandle.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DocumentationFile>bin\Release\AsyncWaitHandle.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Version>2.0.1.0</Version>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+    <!-- Remove if merged into main branch of original AsyncWaitHandle repo -->
+    <PackageId>AsyncWaitHandle2</PackageId>
+
+    <Company>Serge Semenov, Erik Mavrinac</Company>
+    <Copyright>Copyright (c) 2017-2021</Copyright>
+    <Description>Async-await extensions for WaitHandle</Description>
+    <Product>AsyncWaitHandle</Product>
+    <PackageProjectUrl>https://github.com/kind-serge/AsyncWaitHandle</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/kind-serge/AsyncWaitHandle</RepositoryUrl>
+    <PackageDescription>Use C#/VB await keyword with AutoResetEvent, ManualResetEvent, or Semaphore in .NET apps.</PackageDescription>
+    <PackageTags>WaitHandle async await AutoResetEvent ManualResetEvent Semaphore</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.xml</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
