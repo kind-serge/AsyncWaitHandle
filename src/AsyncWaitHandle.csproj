@@ -34,12 +34,12 @@
     <PackageTags>WaitHandle async await AutoResetEvent ManualResetEvent Semaphore</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.xml</AllowedOutputExtensionsInPackageBuildOutputFolder>
-    <PackageReadmeFile>README</PackageReadmeFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
 
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\README">
+    <None Include="..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>

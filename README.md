@@ -1,23 +1,26 @@
 Use C#/VB await keyword with AutoResetEvent, ManualResetEvent, or Semaphore in .NET apps
 
-Extension methods for the WaitHandle class are available in the System.Threading namespace for your convenience.
+Extension methods for the `WaitHandle` class in the System.Threading namespace for your convenience.
 Available as NuGet package 'AsyncWaitHandle2' on nuget.org: https://www.nuget.org/packages/AsyncWaitHandle2/
 
 
-Exammple 1 (simple await):
+Example 1 (simple await):
 
+```c#
 var e = new AutoResetEvent();
 ...
 await e;
+```
 
+Example 2 (configured await):
 
-Exammple 2 (configured await):
-
+```c#
 var e = new AutoResetEvent();
 var cts = new CancellationTokenSource();
 ...
 var timeout = TimeSpan.FromSeconds(30);
-try {
+try
+{
   await e.ConfigureAwait(timeout, cts.Token);
 }
 catch (TimeOutException)
@@ -28,32 +31,38 @@ catch (OperationCanceledException)
 {
   ...
 }
+```
 
 
-Exammple 3 (WaitOneAsync):
+Example 3 (WaitOneAsync):
 
+```c#
 var e = new AutoResetEvent();
 var cts = new CancellationTokenSource();
 ...
 var timeout = TimeSpan.FromSeconds(30);
 bool fSignaled;
-try {
+try
+{
   fSignaled = await e.WaitOneAsync(timeout, cts.Token);
 }
 catch (OperationCanceledException)
 {
   ...
 }
+```
 
 
-Exammple 4 (WaitAnyAsync):
+Example 4 (WaitAnyAsync):
 
+```c#
 var events = new WaitHandle[] { new AutoResetEvent(), new ManualResetEvent() };
 var cts = new CancellationTokenSource();
 ...
 var timeout = TimeSpan.FromSeconds(30);
 int signaledIndex;
-try {
+try
+{
   signaledIndex = await events.WaitAnyAsync(timeout, cts.Token);
 }
 catch (OperationCanceledException)
@@ -66,19 +75,23 @@ switch (signaledIndex)
   case 1: ...
   case WaitHandle.Wait...
 }
+```
 
 
-Exammple 5 (WaitAllAsync):
+Example 5 (WaitAllAsync):
 
+```c#
 var events = new WaitHandle[] { new AutoResetEvent(), new ManualResetEvent() };
 var cts = new CancellationTokenSource();
 ...
 var timeout = TimeSpan.FromSeconds(30);
 bool allSignaled;
-try {
+try
+{
   allSignaled = await events.WaitAllAsync(timeout, cts.Token);
 }
 catch (OperationCanceledException)
 {
   ...
 }
+```
