@@ -5,6 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
 
     <LangVersion>latest</LangVersion>
+    <Nullable>Enable</Nullable>
 
     <TreatWarningsAsErrors Condition="'$(TreatWarningsAsErrors)' == ''">true</TreatWarningsAsErrors>
   </PropertyGroup>
